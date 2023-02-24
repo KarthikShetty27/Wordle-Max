@@ -3,7 +3,6 @@ const keyboard = document.querySelector('.key-container')
 const messageDisplay = document.querySelector('.message-container')
 const Solutionmeaning = document.querySelector('.solutionmean-container')
 
-
 let wordle
 
 const getWordle = () => {
