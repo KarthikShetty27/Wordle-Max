@@ -1,19 +1,8 @@
 const tileDisplay = document.querySelector('.tile-container')
 const keyboard = document.querySelector('.key-container')
 const messageDisplay = document.querySelector('.message-container')
-const Solutionmeaning = document.querySelector('.solutionmean-container')
 
-let wordle
-
-const getWordle = () => {
-    fetch('')
-        .then(response => response.json())
-        .then(json => {
-            wordle = json.toUpperCase()
-        })
-        .catch(err => console.log(err))
-}
-getWordle()
+const wordle = 'ORBIT'
 
 const keys = [
     'Q',
@@ -81,13 +70,16 @@ const handleClick = (letter) => {
     if (!isGameOver) {
         if (letter === 'DELETE') {
             deleteLetter()
+            console.log('guessRows', guessRows)
             return
         }
         if (letter === 'ENTER') {
             checkRow()
+            console.log('guessRows', guessRows)
             return
         }
         addLetter(letter)
+        console.log('guessRows', guessRows)
     }
 }
 
@@ -113,32 +105,30 @@ const deleteLetter = () => {
 
 const checkRow = () => {
     const guess = guessRows[currentRow].join('')
+
     if (currentTile > 4) {
-        fetch(`http://localhost:8000/check/?word=${guess}`)
-            .then(response => response.json())
-            .then(json => {
-                if (json == 'Entry word not found') {
-                    showMessage('word not in list')
-                    return
-                } else {
-                    flipTile()
-                    if (wordle == guess) {
-                        showMessage('Magnificent!')
-                        isGameOver = true
-                        return
-                    } else {
-                        if (currentRow >= 5) {
-                            isGameOver = true
-                            showMessage('Game Over')
-                            return
-                        }
-                        if (currentRow < 5) {
-                            currentRow++
-                            currentTile = 0
-                        }
-                    }
-                }
-            }).catch(err => console.log(err))
+        console.log('Guess is: '+guess,' Wordle word is: '+wordle)
+        flipTile()
+        if (wordle == guess) {
+            showMessage('Magnificent !!')
+            // /----/
+            var solutionMeanContainer = document.getElementById("solutionmean-container");
+            solutionMeanContainer.innerHTML = 'Meaning of ' + wordle +' : `a curved path taken by a planet or another object as it moves around another planet, star, moon, etc.`';
+            console.log('Meaning of '+wordle,': `a curved path taken by a planet or another object as it moves around another planet, star, moon, etc.`')
+            // /----/
+            isGameOver = true
+            return
+        } else {
+            if (currentRow >= 5){
+                isGameOver = false
+                showMessage('Game Over')
+                return
+            }
+            if (currentRow < 5){
+                currentRow++
+                currentTile = 0
+            }
+        }
     }
 }
 
