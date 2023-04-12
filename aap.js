@@ -66,6 +66,7 @@ keys.forEach(key => {
     keyboard.append(buttonElement)
 })
 
+// For Input using Mouse
 const handleClick = (letter) => {
     if (!isGameOver) {
         if (letter === 'DELETE') {
@@ -82,6 +83,27 @@ const handleClick = (letter) => {
         console.log('guessRows', guessRows)
     }
 }
+
+// For Input using Keyboard
+document.addEventListener('keydown', (event) => {
+    const letter = event.key.toUpperCase();
+    if (!isGameOver) {
+      if (letter === 'DELETE') {
+        deleteLetter();
+        console.log('guessRows', guessRows);
+        return;
+      }
+      if (letter === 'ENTER') {
+        checkRow();
+        console.log('guessRows', guessRows);
+        return;
+      }
+      if (/^[A-Z]$/.test(letter)) {
+        addLetter(letter);
+        console.log('guessRows', guessRows);
+      }
+    }
+  });
 
 const addLetter = (letter) => {
     if (currentTile < 5 && currentRow < 6) {
