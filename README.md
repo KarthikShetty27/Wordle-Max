@@ -20,13 +20,3 @@ Wordle-Max is a online word-guessing game that challenges players to guess a fiv
 ![Wordle-Max After Game Completion](Images/Wordle-Max%20After%20Game%20Completion.png)
 
 
-
-<!-- CSS for the README file -->
-<style>
-  h1 {
-    border-bottom: none;
-  }
-  p{
-    text-align: justify;
-  }
-</style>
